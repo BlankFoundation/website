@@ -64,7 +64,7 @@ const BlankLayout = ({ children }) => {
             passHref
           >
             <a className=''>
-              Create Art
+              Upload Art
             </a>
           </NextLink>
           <NextLink 
