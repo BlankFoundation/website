@@ -60,6 +60,14 @@ const BlankLayout = ({ children }) => {
             onClick={showBigBang}
           /> */}
           <NextLink 
+            href='/members' 
+            passHref
+          >
+            <a className=''>
+              My NFTs
+            </a>
+          </NextLink>
+          <NextLink 
             href='/collection/ebfef325-a747-4b50-83e1-8998e7abdb65' 
             passHref
           >
@@ -73,14 +81,6 @@ const BlankLayout = ({ children }) => {
           >
             <a className=''>
               Gallery
-            </a>
-          </NextLink>
-          <NextLink 
-            href='/members' 
-            passHref
-          >
-            <a className=''>
-              My NFTs
             </a>
           </NextLink>
           <BlankButton

@@ -58,7 +58,7 @@ const SelectTokenToEvolve = ({tokenIds, lockedMap, nfts, onEvolve, onClear}) => 
                   Locked
                 </div>
               )}
-              {nfts[tokenId] && (
+              {!lockedMap[tokenId] && nfts[tokenId] && (
                 <div className='p-3 bg-gray-600'>
                   <svg 
                     id='claim-svg' 
