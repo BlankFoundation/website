@@ -94,14 +94,16 @@ const UploadArt = ({ collection, wallet, onUpload }) => {
 
     setShowSuccessMessage(true)
 
-    await sendToDiscord(artItem.id)
+    setTimeout(() => {
+      sendToDiscord(artItem.id)
+    }, 1000);
       
     onUpload(artItem)
   }
 
   return (
   <div className='border bg-green-100 p-3'>
-      <p>Upload An SVG Birb Layer</p>
+      <p>Upload SVG Art</p>
       <p className='text-xs py-3'>Please make sure your image is an SVG file.</p>
       <input
         type='file'
@@ -121,7 +123,7 @@ const UploadArt = ({ collection, wallet, onUpload }) => {
       </div>
       {showSuccessMessage && (
         <div className='pt-3 text-xs'>
-          Success! Your layer has been added to the collection (see below).
+          Your art has been successfully uploaded!          
         </div>
       )}
     </div>

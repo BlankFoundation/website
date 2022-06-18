@@ -1,9 +1,16 @@
 const BirbExplanation = () => {
   return (
     <div>
-      <h3>Getting Started</h3>
-      <div className='pt-3 text-xs'>
-        We recommend playing around with Birb designs using Figma.
+      <div className='pt-3 text-sm'>
+        You can upload any artwork that you have the rights to.
+      </div>
+      <div className='pt-3 text-sm'>
+        Once uploaded you can combine that art with other art to create a unique NFT.
+      </div>
+      <div className='pt-3 text-sm'>
+        The Birb collection is art that can be combined to create Birbs. 
+        If you would like to create Birb art we recommend playing around 
+        with Birb designs using Figma.
         You can find a variety of template files&nbsp;
         <a 
           href='https://www.figma.com/file/2W2fsTuHSBLEFAx7agV4Jo/Darwin?node-id=0%3A1'

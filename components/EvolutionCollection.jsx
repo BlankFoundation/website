@@ -1,58 +1,60 @@
 import { useEffect, useState } from 'react';
 import store from 'store2';
 
-import {
-  NextLink,
-  CombineArt
-} from '.'
-import supabaseClient from '../lib/supabaseClient';
+// import {
+//   NextLink,
+//   CombineArt
+// } from '.'
+// import supabaseClient from '../lib/supabaseClient';
 import BirbExplanation from './BirbExplanation';
-import ClaimNft from './ClaimNft';
+import CombineArt from './CombineArt';
 import EvolutionLayers from './EvolutionLayers';
-import TWButton from './TWButton';
+import NextLink from './NextLink';
+// import ClaimNft from './ClaimNft';
+// import TWButton from './TWButton';
 import UploadArt from './UploadArt';
-import ViewAllNfts from './ViewAllNfts';
+// import ViewAllNfts from './ViewAllNfts';
 
 const EvolutionCollection = ({ collection, provider, wallet }) => { 
   const collectionStore = store.namespace(`blank-evolution-collection-${collection.id}`);
 
-  const [art, setArt] = useState(collection?.art || []);
-  const [selected, setSelected] = useState((collectionStore('selected-layers') || []).filter(
-    (id) => art.find((a) => a.id === id)
-  ));
-  const [claiming, setClaiming] = useState(false);
-  const [claimed, setClaimed] = useState(false)
-  const [viewAll, setViewAll] = useState(false);
+  const [art, setArt] = useState();
+  // const [selected, setSelected] = useState((collectionStore('selected-layers') || []).filter(
+  //   (id) => art.find((a) => a.id === id)
+  // ));
+  // const [claiming, setClaiming] = useState(false);
+  // const [claimed, setClaimed] = useState(false)
+  // const [viewAll, setViewAll] = useState(false);
 
-  useEffect(() => {
-    const art = (collection?.art || [])
-    const sortedArt = art.sort(
-      (a, b) => new Date(a.created_at) - new Date(b.created_at)
-    )
-    setArt(sortedArt)
-  }, [collection?.art])
+  // useEffect(() => {
+  //   const art = (collection?.art || [])
+  //   const sortedArt = art.sort(
+  //     (a, b) => new Date(a.created_at) - new Date(b.created_at)
+  //   )
+  //   setArt(sortedArt)
+  // }, [collection?.art])
 
-  useEffect(() => {
-    const checkClaimed = async () => {
-      const { data, error } = await supabaseClient
-        .from('nft')
-        .select('*')
-        .eq('info->>combinedLayers', selected.join(','))
+  // useEffect(() => {
+  //   const checkClaimed = async () => {
+  //     const { data, error } = await supabaseClient
+  //       .from('nft')
+  //       .select('*')
+  //       .eq('info->>combinedLayers', selected.join(','))
 
-      if (error) {
-        console.log("Error checking claimed", error)
-        return;
-      }
+  //     if (error) {
+  //       console.log("Error checking claimed", error)
+  //       return;
+  //     }
 
-      if (data.length > 0) {
-        setClaimed(true)
-      } else {
-        setClaimed(false)
-      }
-    }
+  //     if (data.length > 0) {
+  //       setClaimed(true)
+  //     } else {
+  //       setClaimed(false)
+  //     }
+  //   }
 
-    checkClaimed();
-  }, [selected])
+  //   checkClaimed();
+  // }, [selected])
 
   const onSelect = (id) => {
     let _selected;
@@ -74,7 +76,7 @@ const EvolutionCollection = ({ collection, provider, wallet }) => {
   }
 
   const onUpload = (artItem) => {
-    setArt([...art, artItem])
+    setArt([artItem])
   }
 
   if (!collection) {
@@ -84,110 +86,59 @@ const EvolutionCollection = ({ collection, provider, wallet }) => {
   }
 
   return (
-    <div className='container mx-auto'>
-      <h1 className='text-sm mb-3'>
-        <NextLink
-          href='/members'
-        >
-          <a className='text-blue-600 underline'>Evolution Challenge</a> 
-        </NextLink>
-        &nbsp;&gt;&nbsp;
-        {collection.title}
-      </h1>
- 
-      {wallet && collection.title === 'SVG Birbs' && (
-        <div className='py-6 flex'>
-          <UploadArt 
-            collection={collection}
-            wallet={wallet}
-            onUpload={onUpload}
-          />
-          <div className='py-6 ml-6'>
-            <BirbExplanation />
-          </div>
-        </div>
-      )}
-
-      <div className='flex'>
-        {collection.title !== 'Full Artwork' && (
-          <div className='overflow-hidden w-1/4'>
+    <div className='container mx-auto flex justify-center'>
+      <div className='lg:w-1/3'>
+        <div className='text-lg'>Upload Art</div>
+          
+        {wallet && collection.title === 'SVG Birbs' && (
+          <div className=''>
             <div className='py-6'>
-              <CombineArt
-                selectedArt={selected.map((id) => art.find((artItem) => artItem.id === id))}
-                claiming={claiming}
+              <BirbExplanation />
+            </div>
+            <div className='py-6'>
+              <UploadArt 
+                collection={collection}
+                wallet={wallet}
+                onUpload={onUpload}
               />
             </div>
 
-            {selected.length > 0 && (
-              <div className='text-center'>
-                {claimed ? (
-                  <div className='text-red-600'>
-                    This NFT has already been claimed!
-                  </div>
-                ) : (
-                  <>
-                    <div className='pt-6 mb-3 text-xs'>
-                      If you like your combined NFT then claim it!
-                      Your Blank NFT will evolve into your claimed art on Blank Day!
-                    </div>
-                    <TWButton
-                      onClick={() => setClaiming(true)}
-                    >
-                      Claim Combined Art
-                    </TWButton>
-                  </>
-                )}
-              </div>
-            )}
-
-            <div className='py-6 text-center'>
-              <TWButton
-                onClick={() => {
-                  setClaiming(!claiming)
-                  setViewAll(false)
-                }}
-              >
-                {claiming ? 'Assemble An NFT' : 'View My NFTs'}
-              </TWButton>
-            </div>
-
-            <div className='py-6 text-center'>
-              <TWButton
-                onClick={() => {
-                  setViewAll(!viewAll)
-                  setClaiming(false)
-                }}
-              >
-                {viewAll ? 'Assemble An NFT' : 'View All Claimed NFTs'}
-              </TWButton>
-            </div>
           </div>
-        )}
-        
-        <div className='pl-6 pt-6 w-3/4'>
-          {!claiming && !viewAll && (
+        )}     
+
+        {art && (
+          <div className='absolute' style={{ top: -9999, left: -9999 }}>
             <EvolutionLayers 
               collectionTitle={collection.title} 
               art={art}
               wallet={wallet}
-              selected={selected}
-              onSelect={onSelect}
-              onReorder={setSelected}
+              selected={[]}
+              onSelect={() => {}}
+              onReorder={() => {}}
               onDelete={onDelete}
             />
-          )}
-          {claiming && (
-            <ClaimNft 
-              provider={provider} 
-              wallet={wallet} 
-              selected={selected} 
-              onComplete={() => setClaiming(false)}
+          </div>
+        )}
+
+        {art && (
+          <div>
+            <CombineArt 
+              selectedArt={art} 
+              title={false}
             />
-          )}
-          {viewAll && (
-            <ViewAllNfts />
-          )}
-        </div>
+            <div className='pt-3'>
+              Now use it to 
+              <NextLink 
+                href='/members' 
+                passHref
+              >
+                <a className='ml-2 underline'>
+                  create an NFT
+                </a>
+              </NextLink>!
+            </div>
+          </div>
+        )}   
       </div>
     </div>
   )

@@ -6,7 +6,7 @@ import { TWButton } from '.';
 const canvasDim = 300;
 export const fullDim = 1000;
 
-const CombineArt = ({ selectedArt, claiming }) => {
+const CombineArt = ({ selectedArt, claiming, title=true }) => {
   const [scroll, setScroll] = useState(0);
   const [buttonText, setButtonText] = useState('Share in Discord');
   const svgMap = useRef({});
@@ -136,7 +136,9 @@ const CombineArt = ({ selectedArt, claiming }) => {
 
   return (
     <div className=''>
-      <h3 className='mb-3'>Combined Layers</h3>
+      {title && (
+        <h3 className='mb-3'>Combined Layers</h3>
+      )}
       <canvas 
         id='canvas' 
         className='absolute' 
