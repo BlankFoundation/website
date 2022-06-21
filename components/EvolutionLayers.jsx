@@ -103,7 +103,7 @@ const EvolutionLayers = ({ wallet, collectionTitle, art, selected, onSelect, onR
                     // starred={starred.find(({ id }) => id === selectedItem.id)}
                     onSelect={onSelect}
                     // onStar={loadStars}
-                    onDelete={onDelete}
+                    // onDelete={onDelete}
                   />
                   <div className='text-center'>
                     <input 

@@ -87,7 +87,7 @@ const EvolutionCollection = ({ collection, provider, wallet }) => {
 
   return (
     <div className='container mx-auto flex justify-center'>
-      <div className='lg:w-1/3'>
+      <div className='lg:w-2/3'>
         <div className='text-lg'>Upload Art</div>
           
         {wallet && collection.title === 'SVG Birbs' && (

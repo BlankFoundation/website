@@ -14,7 +14,7 @@ const EvolutionLayer = ({ signedUrl, wallet, collectionTitle, art, selected, sta
         item={art}
         dim={150}
         wallet={wallet}
-        ownerAdmin={wallet === art.wallet || wallet === ADMIN_WALLET}
+        ownerAdmin={onDelete && wallet === art.wallet || wallet === ADMIN_WALLET}
         selected={selected}
         starred={starred}
         onSelect={onSelect}
