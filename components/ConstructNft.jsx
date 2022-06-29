@@ -7,7 +7,7 @@ import TWButton from './TWButton';
 const ConstructNft = ({wallet, tokenId, collection, onComplete}) => {
   const collectionStore = store.namespace(`blank-evolution-collection-${collection.id}`);
   const _selected = (collectionStore('selected-layers') || []).filter(
-    (id) => art.find((a) => a.id === id)
+    (id) => (collection?.art || []).find((a) => a.id === id)
   )
 
   if (_selected.length === 0) {
