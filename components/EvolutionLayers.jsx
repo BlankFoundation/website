@@ -38,6 +38,7 @@ const EvolutionLayers = ({ wallet, collectionTitle, art, selected, onSelect, onR
     _ordered.splice(existingIndex, 1);
     _ordered.splice(index, 0, id);
     setOrderValues(_ordered.map((_s, index) => index))
+    console.log(_ordered)
     setOrderedSelected(_ordered);
     onReorder(_ordered);
     return true;

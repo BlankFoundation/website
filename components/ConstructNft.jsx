@@ -6,11 +6,16 @@ import TWButton from './TWButton';
 
 const ConstructNft = ({wallet, tokenId, collection, onComplete}) => {
   const collectionStore = store.namespace(`blank-evolution-collection-${collection.id}`);
+  const _selected = (collectionStore('selected-layers') || []).filter(
+    (id) => art.find((a) => a.id === id)
+  )
+
+  if (_selected.length === 0) {
+    _selected.push('83ae67b3-e38d-4459-aef3-62773f0ef79c')
+  }
 
   const [art, setArt] = useState(collection?.art || []);
-  const [selected, setSelected] = useState((collectionStore('selected-layers') || []).filter(
-    (id) => art.find((a) => a.id === id)
-  ));
+  const [selected, setSelected] = useState(_selected);
   const [claiming, setClaiming] = useState(false);
   const [claimed, setClaimed] = useState(false)
   const [assigning, setAssigning] = useState(false);
