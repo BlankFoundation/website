@@ -7,7 +7,8 @@ const dim = 150;
 
 const SelectTokenToEvolve = ({tokenIds, lockedMap, nfts, onEvolve, onClear}) => {
   const clearNFT = async (tokenId) => {
-    if (!confirm("Clear this claimed NFT?")) return;
+    if (!confirm("Clear this claimed NFT? This can not be undone.")) return;
+    if (!confirm("Are you positive you wan to clear this NFT?")) return;
 
     const { id } = nfts[tokenId];
 
